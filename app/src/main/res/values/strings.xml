@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TextWriter</string>
+    <string name="button_OK">OK</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="radio_btn_10px">10px</string>
+    <string name="radio_btn_20px">20px</string>
+    <string name="radio_btn_30px">30px</string>
+    <string name="placeholder">Enter your text</string>
+    <string name="result_text" />
+</resources>
