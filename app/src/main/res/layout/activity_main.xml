@@ -12,34 +12,34 @@
         android:id="@+id/controlsLayoutFrame"
         android:layout_width="322dp"
         android:layout_height="227dp"
-        android:layout_marginTop="60dp"
-        android:padding="15dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/rounded_frame"
+        android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioGroup
-            android:id="@+id/radioGroup"
+            android:id="@+id/textSizeRadioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:orientation="vertical">
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/radioButton10px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/radio_btn_10px" />
 
             <RadioButton
-                android:id="@+id/radioButton6"
+                android:id="@+id/radioButton20px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/radio_btn_20px" />
 
             <RadioButton
-                android:id="@+id/radioButton7"
+                android:id="@+id/radioButton30px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/radio_btn_30px" />
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         android:layout_marginBottom="48dp"
-        android:backgroundTint="#FF2222"
+        android:backgroundTint="@color/button_cancel"
         android:text="@string/button_cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -92,7 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginBottom="48dp"
-        android:backgroundTint="#4CAF50"
+        android:backgroundTint="@color/button_OK"
         android:text="@string/button_OK"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
