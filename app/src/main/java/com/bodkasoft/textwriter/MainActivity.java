@@ -12,7 +12,10 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.bodkasoft.textwriter.databinding.ActivityMainBinding;
+import com.bodkasoft.textwriter.viewmodel.MainViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Map;
@@ -21,64 +24,56 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RadioGroup textSizeRadioGroup;
-    private Button buttonOkView, buttonCancelView;
-    private EditText textInputView;
-    private TextView resultTextView;
-    private String resultText;
+    private ActivityMainBinding binding;
+    private MainViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
 
-        // Retrieving all View components from Activity
-        initializeViews();
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        setupButtonListeners();
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        setupRadioGroupListener();
+        setupObserver();
+        setupListeners();
     }
 
-    private void initializeViews() {
-        buttonOkView = findViewById(R.id.buttonOkView);
-        buttonCancelView = findViewById(R.id.buttonCancelView);
-        textInputView = findViewById(R.id.textInputView);
-        resultTextView = findViewById(R.id.resultTextView);
-        textSizeRadioGroup = findViewById(R.id.textSizeRadioGroup);
+    private void setupObserver() {
+        viewModel.getResultText().observe(this, binding.resultTextView::setText);
+        viewModel.getInputText().observe(this, binding.textInputView::setText);
+
+        viewModel.getSelectedTextSize().observe(this, size -> {
+            if (size == -1) {
+                binding.textSizeRadioGroup.clearCheck();
+            }
+            binding.resultTextView.setTextSize(size);
+        });
+
+        viewModel.getSnackBarMessage().observe(this, message -> {
+            if (message != null) {
+                Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_SHORT).show();
+                viewModel.clearSnackBarMessage();
+            }
+        });
     }
 
-    private void setupButtonListeners() {
-        Map<Button, View.OnClickListener> buttonConfigurator = Map.of(
-                // Add action listener for "OK" button
-                buttonOkView, (view) -> {
-                    resultText = textInputView.getText().toString();
-                    resultTextView.setText(resultText);
-                },
-                // Add action listener for "Cancel" button
-                buttonCancelView, (view) -> {
-                    resultTextView.setText("");
-                    textInputView.setText("");
-                }
-        );
+    private void setupListeners() {
+        binding.buttonOkView.setOnClickListener(view -> {
+            String inputText = binding.textInputView.getText().toString();
+            int selectedRadioId = binding.textSizeRadioGroup.getCheckedRadioButtonId();
+            viewModel.onButtonOkClicked(inputText, selectedRadioId);
+        });
 
-        buttonConfigurator.forEach(Button::setOnClickListener);
-    }
+        binding.buttonCancelView.setOnClickListener(view -> viewModel.onCancelButtonClick());
 
-    private void setupRadioGroupListener() {
-        textSizeRadioGroup.setOnCheckedChangeListener(((group, checkedId) -> {
-            RadioButton textSizeRadioButton = findViewById(checkedId);
-            int textSize = extractTextSize(textSizeRadioButton.getText().toString());
-            resultTextView.setTextSize(textSize);
-            Log.d("RADIO", "Selected text size: " + textSizeRadioButton.getText().toString());
-            Snackbar.make(findViewById(android.R.id.content), "Selected text size: " + textSizeRadioButton.getText().toString(), Snackbar.LENGTH_SHORT).show();
+        binding.textSizeRadioGroup.setOnCheckedChangeListener(((group, checkedId) -> {
+            RadioButton selectedRadioButton = findViewById(checkedId);
+            if (selectedRadioButton != null) {
+                viewModel.onTextSizeSelected(selectedRadioButton.getText().toString());
+            }
         }));
-    }
-
-    private static int extractTextSize(String str) {
-        Pattern pattern = Pattern.compile("^\\d+");
-        Matcher matcher = pattern.matcher(str);
-        return matcher.find() ? Integer.parseInt(matcher.group()) : 0;
     }
 }
