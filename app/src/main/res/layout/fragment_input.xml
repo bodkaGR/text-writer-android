@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragment.InputFragment"
+    android:background="@drawable/rounded_frame"
+    android:orientation="vertical"
+    android:layout_width="307dp"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+
+    <RadioGroup
+        android:id="@+id/textSizeRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radioButton10px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_btn_10px" />
+
+        <RadioButton
+            android:id="@+id/radioButton20px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_btn_20px" />
+
+        <RadioButton
+            android:id="@+id/radioButton30px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_btn_30px" />
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/textInputView"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="bottom"
+        android:ems="10"
+        android:hint="@string/placeholder"
+        android:layout_marginTop="10dp"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/buttonOkView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/button_OK"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:text="@string/button_OK" />
+
+</LinearLayout>

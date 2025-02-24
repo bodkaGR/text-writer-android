@@ -1,26 +1,18 @@
 package com.bodkasoft.textwriter;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bodkasoft.textwriter.databinding.ActivityMainBinding;
+import com.bodkasoft.textwriter.fragment.InputFragment;
+import com.bodkasoft.textwriter.fragment.OutputFragment;
 import com.bodkasoft.textwriter.viewmodel.MainViewModel;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,43 +29,28 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
+        InputFragment inputFragment = new InputFragment();
+        OutputFragment outputFragment = new OutputFragment();
+
+        setupFragment(inputFragment, R.id.controlsLayoutFrame);
+        setupFragment(outputFragment, R.id.outputLayoutFrame);
+
         setupObserver();
-        setupListeners();
+    }
+
+    private void setupFragment(Fragment fragment, int id) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(id, fragment);
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
     private void setupObserver() {
-        viewModel.getResultText().observe(this, binding.resultTextView::setText);
-        viewModel.getInputText().observe(this, binding.textInputView::setText);
-
-        viewModel.getSelectedTextSize().observe(this, size -> {
-            if (size == -1) {
-                binding.textSizeRadioGroup.clearCheck();
-            }
-            binding.resultTextView.setTextSize(size);
-        });
-
         viewModel.getSnackBarMessage().observe(this, message -> {
             if (message != null) {
                 Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_SHORT).show();
                 viewModel.clearSnackBarMessage();
             }
         });
-    }
-
-    private void setupListeners() {
-        binding.buttonOkView.setOnClickListener(view -> {
-            String inputText = binding.textInputView.getText().toString();
-            int selectedRadioId = binding.textSizeRadioGroup.getCheckedRadioButtonId();
-            viewModel.onButtonOkClicked(inputText, selectedRadioId);
-        });
-
-        binding.buttonCancelView.setOnClickListener(view -> viewModel.onCancelButtonClick());
-
-        binding.textSizeRadioGroup.setOnCheckedChangeListener(((group, checkedId) -> {
-            RadioButton selectedRadioButton = findViewById(checkedId);
-            if (selectedRadioButton != null) {
-                viewModel.onTextSizeSelected(selectedRadioButton.getText().toString());
-            }
-        }));
     }
 }
