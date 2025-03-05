@@ -1,6 +1,7 @@
 package com.bodkasoft.textwriter;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,10 +13,12 @@ import com.bodkasoft.textwriter.databinding.ActivityMainBinding;
 import com.bodkasoft.textwriter.fragment.InputFragment;
 import com.bodkasoft.textwriter.fragment.OutputFragment;
 import com.bodkasoft.textwriter.viewmodel.MainViewModel;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Objects;
 
+public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private MainViewModel viewModel;
 
@@ -39,16 +42,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupFragment(Fragment fragment, int id) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(id, fragment);
-        ft.addToBackStack(null);
-        ft.commit();
+        Fragment existingFragment = getSupportFragmentManager().findFragmentById(id);
+
+        if (existingFragment == null){
+            getSupportFragmentManager().beginTransaction()
+                .replace(id, fragment)
+                .addToBackStack(null)
+                .commit();
+        }
     }
 
     private void setupObserver() {
         viewModel.getSnackBarMessage().observe(this, message -> {
             if (message != null) {
-                Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(binding.getRoot(), message, BaseTransientBottomBar.LENGTH_SHORT).show();
                 viewModel.clearSnackBarMessage();
             }
         });

@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragment.InputFragment"
     android:background="@drawable/rounded_frame"
-    android:orientation="vertical"
     android:layout_width="307dp"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="15dp">
 
     <RadioGroup
@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <RadioButton
@@ -43,6 +44,7 @@
         android:ems="10"
         android:hint="@string/placeholder"
         android:layout_marginTop="10dp"
+        android:autofillHints="name"
         android:inputType="text" />
 
     <Button
