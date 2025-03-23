@@ -45,16 +45,18 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
-
     implementation(libs.room.runtime)
-    annotationProcessor(libs.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.rxjava2)
     implementation(libs.androidx.room.rxjava3)
     implementation(libs.androidx.room.guava)
-    testImplementation(libs.androidx.room.testing)
     implementation(libs.androidx.room.paging)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.androidx.room.testing)
+
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+
+    annotationProcessor(libs.room.compiler)
 }

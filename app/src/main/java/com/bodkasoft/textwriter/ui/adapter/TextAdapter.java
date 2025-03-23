@@ -36,7 +36,7 @@ public class TextAdapter extends BaseAdapter {
         }
 
         Text text = texts.get(position);
-        binding.textTitle.setText(text.getText());
+        binding.textTitle.setText(text.getTextTitle());
         binding.textSize.setText(String.valueOf(text.getTextSize()));
 
         binding.deleteButton.setOnClickListener(v -> {

@@ -51,13 +51,13 @@ public class TextViewModel extends AndroidViewModel {
     private void insertText(Text text) {
         try {
             if (repository.saveText(text).get()) {
-                Log.i("INSERT", "Text: [" + text.getText() + "] successfully saved");
+                Log.i("INSERT", "Text: [" + text.getTextTitle() + "] successfully saved");
                 snackBarMessage.setValue("Text saved successfully :)");
             } else {
                 snackBarMessage.setValue("Something went wrong, try again");
             }
         } catch (ExecutionException | InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 

@@ -1,10 +1,11 @@
 package com.bodkasoft.textwriter.ui;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -21,6 +22,8 @@ import com.google.android.material.snackbar.Snackbar;
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private TextViewModel viewModel;
+    private ActionBar actionBar;
+    private static final int IDM_OPEN = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        actionBar = this.getActionBar();
 
         viewModel = new ViewModelProvider(this).get(TextViewModel.class);
 
@@ -38,14 +43,26 @@ public class MainActivity extends AppCompatActivity {
         setupFragment(outputFragment, R.id.outputLayoutFrame);
 
         setupObserver();
-        setupListeners();
     }
 
-    private void setupListeners() {
-        binding.viewTextsButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, TextListActivity.class);
-            startActivity(intent);
-        });
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(Menu.NONE, IDM_OPEN, 1, "Open")
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case IDM_OPEN:
+                Intent intent = new Intent(MainActivity.this, TextListActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                return false;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupFragment(Fragment fragment, int id) {
@@ -53,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (existingFragment == null){
             getSupportFragmentManager().beginTransaction()
-                .replace(id, fragment)
-                .addToBackStack(null)
-                .commit();
+                    .replace(id, fragment)
+                    .addToBackStack(null)
+                    .commit();
         }
     }
 

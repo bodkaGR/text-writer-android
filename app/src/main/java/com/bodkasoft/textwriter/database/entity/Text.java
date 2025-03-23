@@ -10,18 +10,18 @@ public class Text {
     private int id;
 
     @ColumnInfo(name = "text")
-    private String text;
+    private String textTitle;
 
     @ColumnInfo(name = "size")
     private int textSize;
 
-    public Text(String text, int textSize) {
-        this.text = text;
+    public Text(String textTitle, int textSize) {
+        this.textTitle = textTitle;
         this.textSize = textSize;
     }
 
-    public String getText() {
-        return text;
+    public String getTextTitle() {
+        return textTitle;
     }
 
     public int getTextSize() {
