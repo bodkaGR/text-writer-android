@@ -13,11 +13,11 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 
 import com.bodkasoft.textwriter.databinding.FragmentInputBinding;
-import com.bodkasoft.textwriter.viewmodel.MainViewModel;
+import com.bodkasoft.textwriter.viewmodel.TextViewModel;
 
 public class InputFragment extends Fragment {
     private FragmentInputBinding binding;
-    private MainViewModel viewModel;
+    private TextViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class InputFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(TextViewModel.class);
 
         setupObservers();
         setupListeners(view);

@@ -7,4 +7,9 @@
     <string name="radio_btn_30px">30px</string>
     <string name="placeholder">Enter your text</string>
     <string name="result_text" />
+    <string name="texts">Open</string>
+    <string name="text">Text</string>
+    <string name="size">Size</string>
+    <string name="delete">Delete</string>
+    <string name="no_any_messages_yet">No any messages yet</string>
 </resources>

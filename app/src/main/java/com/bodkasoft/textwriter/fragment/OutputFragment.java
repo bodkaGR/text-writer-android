@@ -12,11 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bodkasoft.textwriter.databinding.FragmentOutputBinding;
-import com.bodkasoft.textwriter.viewmodel.MainViewModel;
+import com.bodkasoft.textwriter.viewmodel.TextViewModel;
 
 public class OutputFragment extends Fragment {
     private FragmentOutputBinding binding;
-    private MainViewModel viewModel;
+    private TextViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class OutputFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(TextViewModel.class);
 
         setupObservers();
         setupListeners();

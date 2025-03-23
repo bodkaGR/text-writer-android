@@ -4,4 +4,5 @@
     <color name="main_constrain">#AAFFEB3B</color>
     <color name="button_OK">#4CAF50</color>
     <color name="button_cancel">#FF2222</color>
+    <color name="primary_color">#2196F3</color>
 </resources>

@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.TextWriter" parent="Theme.Material3.DayNight.NoActionBar" />
+    <style name="Base.Theme.TextWriter" parent="Theme.AppCompat.DayNight.DarkActionBar" />
 
     <style name="Theme.TextWriter" parent="Base.Theme.TextWriter">
-<!--        <item name="android:background">@color/main_constrain</item>-->
+        <!--        <item name="android:background">@color/main_constrain</item>-->
     </style>
 </resources>
